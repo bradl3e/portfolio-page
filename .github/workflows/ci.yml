@@ -1,6 +1,7 @@
 name: CI
 
-# Läuft bei jedem Push und jedem Pull Request: prüft Code-Stil und ob der Build durchgeht
+# Läuft bei jedem Push und jedem Pull Request. Prüft dieselben Regeln wie CLAUDE.md
+# (Abschnitt "Wo welche Regel geprüft wird"). Blockiert den Deploy nicht: deploy.yml läuft unabhängig.
 on:
   push:
   pull_request:
@@ -18,5 +19,21 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Bekannte Sicherheitslücken ab Stufe "high" in Abhängigkeiten
+      - run: npm audit --audit-level=high
+      # ESLint inkl. Verbot von Inline-Styles (style=), siehe eslint.config.mjs
       - run: npm run lint
       - run: npm run build
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Ganze Historie, damit gitleaks alle Commits prüfen kann
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Keine PR-Kommentare, damit keine Schreibrechte nötig sind
+          GITLEAKS_ENABLE_COMMENTS: false
