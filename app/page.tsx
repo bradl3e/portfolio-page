@@ -4,12 +4,12 @@ import pixelSzene from "@/public/images/pixel-szene.jpg";
 
 export default function Home() {
   return (
-    <PageShell current="/" className="gap-6">
+    <PageShell current="/" className="gap-4">
       <header className="flex flex-col items-center text-center">
-        <h1 className="text-5xl leading-none tracking-display sm:text-7xl lg:text-display-xl">
+        <h1 className="text-5xl leading-none tracking-display sm:text-display-hero">
           Hallo, ich bin <span className="text-accent">Brad</span>
         </h1>
-        <p className="max-w-intro text-lg text-text-secondary italic sm:text-lead">
+        <p className="max-w-intro text-lead text-text-secondary italic">
           Ich bin Student an der Berner Fachhochschule und bin gerade an
           meinem Bachelor in Wirtschaftsinformatik dran
         </p>
@@ -18,7 +18,7 @@ export default function Home() {
         src={pixelSzene}
         alt="Pixel-Szene: Brad sitzt am Schreibtisch vor zwei Monitoren, neben ihm schläft eine weisse Katze im Sessel."
         preload
-        sizes="(min-width: 1440px) 1376px, 100vw"
+        sizes="(min-width: 1024px) 963px, 100vw"
         className="aspect-hero w-full max-w-hero object-cover"
       />
     </PageShell>

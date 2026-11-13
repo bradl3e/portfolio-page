@@ -5,13 +5,12 @@
   --color-bg-canvas: #16171a;
   --color-text-primary: #f4f2ed;
   --color-text-secondary: #b4b1a8;
-  --color-accent: #63c9e0;
+  /* Figma-Variable color/accent/default */
+  --color-accent: #e08a63;
   --color-action-bg: #f4f2ed;
   --color-action-text: #16171a;
   --color-border-strong: #f4f2ed;
   --color-bg-raised: #232428;
-  /* Figma-Variable color/accent/default, im Frame "Projekte Hover" für den Albumtitel */
-  --color-accent-warm: #e08a63;
 
   --font-serif: var(--font-instrument-serif), serif;
   --font-mono: var(--font-dm-mono), monospace;
@@ -25,7 +24,12 @@
   --text-display-l: 72px;
   --text-display-l--line-height: 1;
   --text-display-l--letter-spacing: -0.015em;
-  --text-lead: 28px;
+  /* Home ist bewusst 30 % kleiner als Figma (wirkte zu stark eingezoomt, PR #1):
+     Titel 96 -> 67 px, Lead 28 -> 20 px, Intro 1144 -> 817 px (im Verhältnis zum Lead, sonst bricht er um), Bild 1376 -> 963 px. */
+  --text-display-hero: 67px;
+  --text-display-hero--line-height: 1;
+  --text-display-hero--letter-spacing: -0.02em;
+  --text-lead: 20px;
   --text-lead--line-height: calc(34 / 28);
   --text-label: 13px;
   --text-label--line-height: calc(18 / 13);
@@ -34,8 +38,8 @@
   --tracking-display: -0.02em;
 
   /* Maximale Breiten aus dem Frame "HF – Home" -> max-w-intro, max-w-hero */
-  --container-intro: 1144px;
-  --container-hero: 1376px;
+  --container-intro: 817px;
+  --container-hero: 963px;
   /* Album-Track im Frame "HF – Projekte" (4 x 376 + 3 x 32) -> max-w-track */
   --container-track: 1600px;
   /* Bildausschnitt der Pixel-Szene im Frame (1376 x 726) -> aspect-hero */

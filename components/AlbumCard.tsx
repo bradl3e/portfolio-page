@@ -39,7 +39,7 @@ export default function AlbumCard({ href, title, number, cover }: AlbumCardProps
           )}
         </span>
       </span>
-      <span className="font-mono text-label font-medium text-text-primary uppercase transition-colors duration-300 group-hover/album:text-accent-warm group-focus-visible/album:text-accent-warm">
+      <span className="font-mono text-label font-medium text-text-primary uppercase transition-colors duration-300 group-hover/album:text-accent group-focus-visible/album:text-accent">
         {title}
       </span>
     </Link>
