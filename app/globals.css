@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Design-Tokens aus dem Figma-File "Brad's Portfolio" (High-Fidelity). */
+@theme {
+  --color-bg-canvas: #16171a;
+  --color-text-primary: #f4f2ed;
+  --color-text-secondary: #b4b1a8;
+  --color-accent: #63c9e0;
+  --color-action-bg: #f4f2ed;
+  --color-action-text: #16171a;
+  --color-border-strong: #f4f2ed;
+
+  --font-serif: var(--font-instrument-serif), serif;
+  --font-mono: var(--font-dm-mono), monospace;
+
+  /* Textstile aus Figma (Display/XL, Lead, Label/Button) -> text-display-xl, text-lead, text-label */
+  --text-display-xl: 96px;
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-lead: 28px;
+  --text-lead--line-height: calc(34 / 28);
+  --text-label: 13px;
+  --text-label--line-height: calc(18 / 13);
+  --text-label--letter-spacing: 0.04em;
+  /* Laufweite von Display/XL, auch für die kleineren Titelgrössen unter lg */
+  --tracking-display: -0.02em;
+
+  /* Maximale Breiten aus dem Frame "HF – Home" -> max-w-intro, max-w-hero */
+  --container-intro: 1144px;
+  --container-hero: 1376px;
+  /* Bildausschnitt der Pixel-Szene im Frame (1376 x 726) -> aspect-hero */
+  --aspect-hero: 1376 / 726;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Das Design existiert nur als dunkles Theme (Galaxy-Hintergrund). */
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
