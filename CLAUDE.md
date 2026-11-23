@@ -63,7 +63,7 @@ Figma: <https://www.figma.com/design/RLN09HZka8GlFOG8vfRCzp/Brad-s-Portfolio?nod
 
 - Frames: HF – Home (`31:2`), Projekte, Projekt 01–04, Lebenslauf 1–5, Kontakt, Projekte Hover. Komponenten-Section "Komponenten" (Button, Album Card, Competence Row, Timeline Station/Entry/Step/Stepper, Contact Tile, Navigation, Project Info, Galaxy Background).
 - Vorgehen pro Seite: zuerst die Figma-Skill-Anleitung `figma-design-to-code` lesen, dann `get_design_context` auf dem **Frame** (nicht auf der Canvas `1:4`), Assets mit `curl` nach `public/images/` laden (keine temporären Figma-URLs im Code), Tokens aus Figma-Variablen (`get_variable_defs`) nach `app/globals.css`.
-- Das Design gibt nur Desktop (1728 px) vor. Responsive wird nach dem Bau aller Seiten in einem eigenen Durchgang gemacht. Bis dahin Layouts fluid halten (relative Einheiten, kein Overflow), aber nicht pro Seite feinschleifen.
+- Das Design gibt Desktop (1728 px) und Responsive-Frames vor: Tablet Landscape (1024 × 768), Tablet Portrait (768 × 1024), Mobile Landscape (844 × 390), Mobile Portrait (390 × 844) sowie die Section "Komponenten – Responsive". Responsive wird nach dem Bau aller Seiten in einem eigenen Durchgang nach diesen Frames umgesetzt. Bis dahin Layouts fluid halten (relative Einheiten, kein Overflow), aber nicht pro Seite feinschleifen.
 - Figma gibt Layout und Tokens vor. Animationen und Interaktionen werden per Issue festgelegt und umgesetzt. Was weder im Figma noch in einem Issue steht, nur als Vorschlag nennen.
 
 ## Bewertung EWEB (60 % der Note)
@@ -81,7 +81,7 @@ Folgen für den Code:
 
 - Server Components als Standard, `"use client"` nur wenn nötig (State, Events).
 - Komponenten in `components/`, Seiten in `app/<route>/page.tsx`, Assets in `public/images/` (Import als statisches Bild, `next/image`).
-- Design-Tokens nur in `app/globals.css` (`@theme`): Farben, Fonts (Instrument Serif für Text, DM Mono für Labels), Textstile (`text-display-xl`, `text-lead`, `text-label`), Breiten (`max-w-intro`, `max-w-hero`). Neue Werte aus Figma erst als Token anlegen, dann verwenden.
+- Design-Tokens nur in `app/globals.css` (`@theme`): Farben, Fonts (Iosevka Charon Mono für Titel = `font-display`, Familjen Grotesk für Text = `font-sans`, DM Mono für Labels = `font-mono`), Textstile (`text-display-xl`, `text-display-l`, `text-display-hero`, `text-lead`, `text-label`), Breiten (`max-w-intro`, `max-w-hero`, `max-w-track`). Neue Werte aus Figma erst als Token anlegen, dann verwenden.
   - Gut: `className="text-label text-text-secondary"` – Wert kommt aus dem Token, Änderung an einer Stelle.
   - Schlecht: `className="text-[13px] text-[#b4b1a8]"` – hartkodiert, driftet beim nächsten Figma-Update auseinander.
 - Wiederkehrende Muster als Komponente statt Klassen kopieren.

@@ -12,20 +12,22 @@
   --color-border-strong: #f4f2ed;
   --color-bg-raised: #232428;
 
-  --font-serif: var(--font-instrument-serif), serif;
-  --font-mono: var(--font-dm-mono), monospace;
+  /* Eine Schrift pro Rolle: Titel = font-display, Fliesstext/Lead = font-sans, Labels/Navigation/Buttons = font-mono */
   --font-display: var(--font-iosevka-charon-mono), monospace;
+  --font-sans: var(--font-familjen-grotesk), sans-serif;
+  --font-mono: var(--font-dm-mono), monospace;
 
-  /* Textstile aus Figma (Display/XL, Lead, Label/Button) -> text-display-xl, text-lead, text-label */
+  /* Textstile aus Figma (Display/XL, Lead, Label/Button) -> text-display-xl, text-lead, text-label.
+     Display-Stile gehören zu font-display (Iosevka Charon Mono), Lead zu font-sans (Familjen Grotesk Italic). */
   --text-display-xl: 96px;
   --text-display-xl--line-height: 1;
   --text-display-xl--letter-spacing: -0.02em;
-  /* Display/L (Seitentitel "Projekte", Schrift font-display) -> text-display-l */
+  /* Display/L (Seitentitel "Projekte") -> text-display-l */
   --text-display-l: 72px;
   --text-display-l--line-height: 1;
   --text-display-l--letter-spacing: -0.015em;
   /* Home ist bewusst 30 % kleiner als Figma (wirkte zu stark eingezoomt, PR #1):
-     Titel 96 -> 67 px, Lead 28 -> 20 px, Intro 1144 -> 817 px (im Verhältnis zum Lead, sonst bricht er um), Bild 1376 -> 963 px. */
+     Titel 96 -> 67 px, Lead 28 -> 20 px, Intro 1144 -> 940 px (so breit, dass der Lead in Familjen Grotesk Italic 20 px auf eine Zeile passt), Bild 1376 -> 963 px. */
   --text-display-hero: 67px;
   --text-display-hero--line-height: 1;
   --text-display-hero--letter-spacing: -0.02em;
@@ -38,7 +40,7 @@
   --tracking-display: -0.02em;
 
   /* Maximale Breiten aus dem Frame "HF – Home" -> max-w-intro, max-w-hero */
-  --container-intro: 817px;
+  --container-intro: 940px;
   --container-hero: 963px;
   /* Album-Track im Frame "HF – Projekte" (4 x 376 + 3 x 32) -> max-w-track */
   --container-track: 1600px;

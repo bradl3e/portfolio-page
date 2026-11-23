@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <PageShell current="/" className="gap-4">
       <header className="flex flex-col items-center text-center">
-        <h1 className="text-5xl leading-none tracking-display sm:text-display-hero">
+        <h1 className="font-display text-5xl leading-none tracking-display sm:text-display-hero">
           Hallo, ich bin <span className="text-accent">Brad</span>
         </h1>
         <p className="max-w-intro text-lead text-text-secondary italic">

@@ -33,7 +33,7 @@ export default function AlbumCard({ href, title, number, cover }: AlbumCardProps
               className="object-cover"
             />
           ) : (
-            <span aria-hidden="true" className="text-display-xl text-text-secondary">
+            <span aria-hidden="true" className="font-display text-display-xl text-text-secondary">
               {number}
             </span>
           )}

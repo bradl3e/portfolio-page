@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Mono, Instrument_Serif, Iosevka_Charon_Mono } from "next/font/google";
+import { DM_Mono, Familjen_Grotesk, Iosevka_Charon_Mono } from "next/font/google";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const familjenGrotesk = Familjen_Grotesk({
+  variable: "--font-familjen-grotesk",
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
@@ -32,9 +32,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${instrumentSerif.variable} ${dmMono.variable} ${iosevkaCharonMono.variable} h-full antialiased`}
+      className={`${familjenGrotesk.variable} ${dmMono.variable} ${iosevkaCharonMono.variable} h-full antialiased`}
     >
-      <body className="relative flex min-h-full flex-col font-serif">
+      <body className="relative flex min-h-full flex-col font-sans">
         <GalaxyBackground />
         {children}
       </body>
