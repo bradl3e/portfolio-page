@@ -6,6 +6,7 @@
 
 # testing
 /coverage
+/assets-roh
 
 # next.js
 /.next/
