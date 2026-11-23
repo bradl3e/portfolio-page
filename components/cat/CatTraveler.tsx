@@ -35,17 +35,8 @@ export default function CatTraveler() {
   const timer = useRef<number | undefined>(undefined);
   const animation = useRef<Animation | undefined>(undefined);
 
-  // Einmalig: Frame-Anzahl und Zyklusdauer aus sprites.ts (über data-Attribute) in CSS übertragen.
+  // Beim Entfernen des Travelers das Ausblenden der Spot-Katzen sicher aufheben.
   useLayoutEffect(() => {
-    const traveler = travelerRef.current;
-    if (!traveler) return;
-    traveler.querySelectorAll<HTMLElement>("[data-sprite]").forEach((sprite) => {
-      const frames = Number(sprite.dataset.frames);
-      const fps = Number(sprite.dataset.fps);
-      // Gleiche Begründung wie unten: Custom Properties statt style=.
-      sprite.style.setProperty("--frames", String(frames));
-      sprite.style.setProperty("--cycle", `${frames / fps}s`);
-    });
     return () => document.documentElement.removeAttribute(TRAVELING_ATTRIBUTE);
   }, []);
 
@@ -177,10 +168,12 @@ export default function CatTraveler() {
   return (
     <div ref={travelerRef} className={styles.traveler} data-state="resting" aria-hidden="true">
       <div className={styles.flipper}>
-        <div className={`${styles.sprite} ${styles.spritePanic}`}>
+        {/* Die Pose-Klasse steht am Wrapper, damit .sprite die Zellmasse (--cell-w usw.) für Position und Grösse
+            hat, und zusätzlich am .frame in CatSprite, wo die Streifen-Animation hängt. Dieselbe Klasse wie beim Spot. */}
+        <div className={`${styles.sprite} ${styles.spritePanic} ${styles.panic}`}>
           <CatSprite name="panic" eager />
         </div>
-        <div className={`${styles.sprite} ${styles.spriteRun}`}>
+        <div className={`${styles.sprite} ${styles.spriteRun} ${styles.run}`}>
           <CatSprite name="run" eager />
         </div>
       </div>

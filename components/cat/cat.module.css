@@ -2,10 +2,14 @@
 
 .spot,
 .traveler {
-  /* Seitenverhältnis des Ruhe-Frames (424 x 304), passt zur Spot-Box auf Home. */
-  --cat-aspect: 424 / 304;
-  /* Breite der Katze auf Nicht-Home-Seiten ≈ Home-Katze (15.41 % von 963 px). */
-  --cat-rest-width: 148px;
+  /* Referenzzelle = schlafende Katze (424 x 304). Alle Streifen sind im selben Szenen-Massstab gezeichnet:
+     dargestellte Breite = Zellbreite x (Breite des Schlaf-Spots / 424). */
+  --ref-w: 424;
+  --ref-h: 304;
+  /* Massstab auf Nicht-Home-Seiten: Bildschirm-px je Sprite-px ≈ Home-Katze (15.41 % von 963 px / 424 px). */
+  --cat-rest-scale: 0.35;
+  /* Abstand von der Unterkante der Titelzeile (text-display-l, 72 px) bis zur Schrift-Grundlinie. */
+  --cat-title-baseline-offset: 8px;
   pointer-events: none;
 }
 
@@ -23,15 +27,16 @@
 }
 
 /* Projekte: absolut rechts neben dem Titel (dessen Container ist relative), der Titel bleibt mittig.
-   Unter lg (1024 px) ausgeblendet, damit sie nichts verdeckt und nicht überläuft. */
+   Unter lg (1024 px) ausgeblendet, damit sie nichts verdeckt und nicht überläuft.
+   Grösse = Zelle der Pose x gemeinsamer Massstab; bottom setzt die Pfoten auf die Titel-Grundlinie. */
 .placeBesideTitle {
   display: none;
   position: absolute;
   left: 100%;
-  bottom: 0;
+  bottom: var(--cat-title-baseline-offset);
   margin-left: 1.5rem;
-  width: var(--cat-rest-width);
-  aspect-ratio: var(--cat-aspect);
+  width: calc(var(--cell-w) * var(--cat-rest-scale) * 1px);
+  aspect-ratio: calc(var(--cell-w) / var(--cell-h));
 }
 
 @media (min-width: 1024px) {
@@ -62,14 +67,59 @@
   image-rendering: pixelated;
 }
 
-/* Mehrere Frames: --frames und --cycle setzt der CatTraveler aus sprites.ts. */
-.frame:not([data-frames="1"]) .strip {
-  animation: strip-play var(--cycle) steps(var(--frames)) infinite;
+/* Sprite-Werte pro Pose (Sprite-Pixel). Beim Tauschen einer Datei hier anpassen:
+   --cell-w/--cell-h = Zellgrösse, --frames = Anzahl Frames, --cycle = Dauer eines Durchlaufs,
+   --anchor-x = Zell-x, der auf der Mittellinie der Katze liegt (meist die Zellmitte). */
+.sleep {
+  --cell-w: 424;
+  --cell-h: 304;
+  --anchor-x: 212;
+  --frames: 1;
 }
 
-@keyframes strip-play {
+.sit {
+  --cell-w: 255;
+  --cell-h: 326;
+  --anchor-x: 127.5;
+  --frames: 1;
+}
+
+/* Panik: 3 Frames, einmal, letzter Frame bleibt. --cycle = PANIC_MS in catMotion.ts (700 ms). */
+.panic {
+  --cell-w: 511;
+  --cell-h: 487;
+  --anchor-x: 255.5;
+  --frames: 3;
+  --cycle: 0.7s;
+}
+
+.panic .strip {
+  animation: strip-once var(--cycle) steps(var(--frames), jump-none) forwards;
+}
+
+/* Rennen: 6 Frames, Schleife mit ca. 11 fps. Anker = Kopf: Die Nasenkante bei x=650 soll dort liegen,
+   wo die Nase des Landungs-Frames (aufwachen, rechter Rand 507, Mitte 255.5) liegt: 650 - (507 - 255.5) = 398.5. */
+.run {
+  --cell-w: 688;
+  --cell-h: 291;
+  --anchor-x: 398.5;
+  --frames: 6;
+  --cycle: 0.545s;
+}
+
+.run .strip {
+  animation: strip-loop var(--cycle) steps(var(--frames)) infinite;
+}
+
+@keyframes strip-loop {
   to {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes strip-once {
+  to {
+    transform: translateX(calc(-100% * (var(--frames) - 1) / var(--frames)));
   }
 }
 
@@ -94,8 +144,8 @@
   left: 0;
   top: 0;
   z-index: 40;
-  width: var(--cat-w, var(--cat-rest-width));
-  height: var(--cat-h, auto);
+  width: var(--cat-w, 0px);
+  height: var(--cat-h, 0px);
   transform: translate(var(--cat-x, 0px), var(--cat-y, 0px));
   transform-origin: 0 0;
   visibility: hidden;
@@ -106,6 +156,7 @@
 }
 
 .flipper {
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
@@ -115,11 +166,16 @@
   transform: scaleX(-1);
 }
 
-/* Pro Zustand wird genau ein Sprite gezeigt (später verschiedene Streifen). */
+/* Alle Sprites im gemeinsamen Massstab (Rahmenbreite / Referenzzelle), Pfoten unten,
+   --anchor-x der Zelle liegt auf der Mittellinie des Rahmens. */
 .sprite {
   display: none;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(var(--cat-w) * var(--cell-w) / var(--ref-w));
+  height: calc(var(--cat-h) * var(--cell-h) / var(--ref-h));
+  margin-left: calc(var(--cat-w) * var(--anchor-x) / var(--ref-w) * -1);
 }
 
 .traveler[data-state="panicking"] .spritePanic,

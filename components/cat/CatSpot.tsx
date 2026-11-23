@@ -15,8 +15,9 @@ type CatSpotProps = {
 export default function CatSpot({ pose, place }: CatSpotProps) {
   const placeClass = place === "home-scene" ? styles.placeHomeScene : styles.placeBesideTitle;
   return (
-    <span className={`${styles.spot} ${placeClass}`} data-cat-spot data-cat-pose={pose} aria-hidden="true">
-      <CatSprite name={pose} />
+    <span className={`${styles.spot} ${styles[pose]} ${placeClass}`} data-cat-spot data-cat-pose={pose} aria-hidden="true">
+      {/* eager: Nach der Ankunft wird der Spot sofort sichtbar, ein lazy Bild würde kurz fehlen. */}
+      <CatSprite name={pose} eager />
     </span>
   );
 }
