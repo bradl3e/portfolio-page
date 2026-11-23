@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Mono, Familjen_Grotesk, Iosevka_Charon_Mono } from "next/font/google";
+import CatTraveler from "@/components/cat/CatTraveler";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="relative flex min-h-full flex-col font-sans">
         <GalaxyBackground />
         {children}
+        <CatTraveler />
       </body>
     </html>
   );
