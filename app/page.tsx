@@ -1,4 +1,5 @@
 import Image from "next/image";
+import BradScene from "@/components/brad/BradScene";
 import CatSpot from "@/components/cat/CatSpot";
 import PageShell from "@/components/PageShell";
 import pixelSzene from "@/public/images/pixel-szene.jpg";
@@ -23,6 +24,7 @@ export default function Home() {
           sizes="(min-width: 1024px) 963px, 100vw"
           className="size-full object-cover"
         />
+        <BradScene />
         <CatSpot pose="sleep" place="home-scene" />
       </div>
     </PageShell>

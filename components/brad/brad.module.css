@@ -1,0 +1,92 @@
+/* Animation der Pixel-Szene. Werte stammen aus assets-roh/brad/brad-teile.json (Spike):
+   Prozentwerte beziehen sich auf den sichtbaren Bildausschnitt (2752 x 1452 px, y-Offset -42),
+   also auf den Bild-Container mit aspect-hero. 1 Art-Pixel = 8 Bildpixel. */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.part {
+  position: absolute;
+  pointer-events: none;
+  /* Bewusst NICHT pixelated: Das Hintergrundbild wird weich skaliert, nur so passen die Teile ohne harte Kante darüber. */
+  image-rendering: auto;
+}
+
+/* Z-Reihenfolge: unterer Fuss, oberer Fuss, Hand (DOM-Reihenfolge). */
+
+/* Hand: 76 x 83 px bei (1324, 716). */
+.hand {
+  left: 48.11%;
+  top: 46.419%;
+  width: 2.762%;
+  height: 5.716%;
+  animation: hand-tap 2.4s step-end infinite;
+}
+
+/* Ein Art-Pixel (8 px) = 9.64 % der eigenen Höhe. Zwei Tipp-Salven pro 2.4-s-Loop,
+   Frames bei 10 fps: Tippen in Frame 4-5, 7-8 und 14-15 (je 1/24 = 4.167 % der Zeit). */
+@keyframes hand-tap {
+  0%,
+  25%,
+  37.5%,
+  66.667%,
+  100% {
+    transform: translateY(0);
+  }
+  16.667%,
+  29.167%,
+  58.333% {
+    transform: translateY(9.64%);
+  }
+}
+
+/* Füsse: 158 x 146 px bei (904, 1231) und 238 x 169 px bei (893, 1340). Sie drehen um den Knöchel,
+   so heben sich die Zehen (im Uhrzeigersinn). Winkel und Drehpunkt (% der Ebene) aus dem JSON. */
+.footTop {
+  left: 32.849%;
+  top: 81.887%;
+  width: 5.741%;
+  height: 10.055%;
+  --tilt: 3deg;
+  transform-origin: 92.4% 64.4%;
+  animation: foot-wiggle 1.2s step-end infinite;
+}
+
+.footBottom {
+  left: 32.449%;
+  top: 89.394%;
+  width: 8.648%;
+  height: 11.639%;
+  --tilt: 2.5deg;
+  transform-origin: 87% 65.1%;
+  /* Gegenphasig zum oberen Fuss: um eine halbe Periode versetzt. */
+  animation: foot-wiggle 1.2s step-end 0.6s infinite;
+}
+
+/* 10 fps, 12 Frames pro Loop: Winkelfaktor 0, 0.5, 1, 1, 0.5, 0, dann Ruhe. */
+@keyframes foot-wiggle {
+  0%,
+  41.667%,
+  100% {
+    transform: rotate(0deg);
+  }
+  8.333%,
+  33.333% {
+    transform: rotate(calc(var(--tilt) * 0.5));
+  }
+  16.667% {
+    transform: rotate(var(--tilt));
+  }
+}
+
+/* Reduzierte Bewegung: Ruhestellung = Originalbild. Unter 640 px läuft die Animation weiter, sie verdeckt nichts. */
+@media (prefers-reduced-motion: reduce) {
+  .hand,
+  .footTop,
+  .footBottom {
+    animation: none;
+  }
+}
