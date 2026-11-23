@@ -7,9 +7,11 @@ const links = [
   { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
+export type NavHref = (typeof links)[number]["href"];
+
 type NavigationProps = {
   /** href des aktiven Bereichs (Figma: Variante "Current"). */
-  current: (typeof links)[number]["href"];
+  current: NavHref;
 };
 
 const base =

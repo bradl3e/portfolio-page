@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Mono, Instrument_Serif } from "next/font/google";
+import { DM_Mono, Instrument_Serif, Iosevka_Charon_Mono } from "next/font/google";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import "./globals.css";
 
@@ -16,6 +16,12 @@ const dmMono = DM_Mono({
   weight: "500",
 });
 
+const iosevkaCharonMono = Iosevka_Charon_Mono({
+  variable: "--font-iosevka-charon-mono",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Brad – Portfolio",
   description:
@@ -26,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${instrumentSerif.variable} ${dmMono.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${dmMono.variable} ${iosevkaCharonMono.variable} h-full antialiased`}
     >
       <body className="relative flex min-h-full flex-col font-serif">
         <GalaxyBackground />
