@@ -21,7 +21,7 @@ Bei Konflikten gilt diese Reihenfolge: harte Grenzen → aktuelle Anweisung von 
 
 1. Betroffene Dateien lesen; bei Design-Arbeit den Figma-Frame (siehe unten).
 2. In kleinen Schritten umsetzen. Entscheidungsregeln:
-   - Neue Dependency, Architekturfrage oder Abweichung vom Figma → erst fragen, nichts umsetzen.
+   - Neue Dependency, Architekturfrage oder Abweichung vom Figma, die kein Issue abdeckt → erst fragen, nichts umsetzen.
    - Figma und EWEB-Kriterium widersprechen sich (z. B. Inline-Style, fehlender `alt`) → Kriterium gewinnt, Abweichung im Bericht nennen.
    - Sonst → naheliegende Lösung wählen und im Bericht nennen.
    - Läuft die Arbeit auf `main` statt auf einem Feature-Branch → darauf hinweisen.
@@ -64,7 +64,7 @@ Figma: <https://www.figma.com/design/RLN09HZka8GlFOG8vfRCzp/Brad-s-Portfolio?nod
 - Frames: HF – Home (`31:2`), Projekte, Projekt 01–04, Lebenslauf 1–5, Kontakt, Projekte Hover. Komponenten-Section "Komponenten" (Button, Album Card, Competence Row, Timeline Station/Entry/Step/Stepper, Contact Tile, Navigation, Project Info, Galaxy Background).
 - Vorgehen pro Seite: zuerst die Figma-Skill-Anleitung `figma-design-to-code` lesen, dann `get_design_context` auf dem **Frame** (nicht auf der Canvas `1:4`), Assets mit `curl` nach `public/images/` laden (keine temporären Figma-URLs im Code), Tokens aus Figma-Variablen (`get_variable_defs`) nach `app/globals.css`.
 - Das Design gibt nur Desktop (1728 px) vor. Responsive wird nach dem Bau aller Seiten in einem eigenen Durchgang gemacht. Bis dahin Layouts fluid halten (relative Einheiten, kein Overflow), aber nicht pro Seite feinschleifen.
-- Nur das umsetzen, was im Figma steht. Eigene Ideen getrennt als Vorschlag nennen.
+- Figma gibt Layout und Tokens vor. Animationen und Interaktionen werden per Issue festgelegt und umgesetzt. Was weder im Figma noch in einem Issue steht, nur als Vorschlag nennen.
 
 ## Bewertung EWEB (60 % der Note)
 
