@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CatSpot from "@/components/cat/CatSpot";
 import PageShell from "@/components/PageShell";
 import pixelSzene from "@/public/images/pixel-szene.jpg";
 
@@ -14,13 +15,16 @@ export default function Home() {
           meinem Bachelor in Wirtschaftsinformatik dran
         </p>
       </header>
-      <Image
-        src={pixelSzene}
-        alt="Pixel-Szene: Brad sitzt am Schreibtisch vor zwei Monitoren, neben ihm schläft eine weisse Katze im Sessel."
-        preload
-        sizes="(min-width: 1024px) 963px, 100vw"
-        className="aspect-hero w-full max-w-hero object-cover"
-      />
+      <div className="relative aspect-hero w-full max-w-hero">
+        <Image
+          src={pixelSzene}
+          alt="Pixel-Szene: Brad sitzt am Schreibtisch vor zwei Monitoren, neben ihm schläft eine weisse Katze im Sessel."
+          preload
+          sizes="(min-width: 1024px) 963px, 100vw"
+          className="size-full object-cover"
+        />
+        <CatSpot pose="sleep" place="home-scene" />
+      </div>
     </PageShell>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AlbumCard from "@/components/AlbumCard";
+import CatSpot from "@/components/cat/CatSpot";
 import PageShell from "@/components/PageShell";
 import cover01 from "@/public/images/projekt-01-cover.jpg";
 import cover02 from "@/public/images/projekt-02-cover.jpg";
@@ -33,7 +34,10 @@ const projects = [
 export default function Projekte() {
   return (
     <PageShell current="/projekte" className="gap-16">
-      <h1 className="font-display text-display-l">Projekte</h1>
+      <div className="relative">
+        <h1 className="font-display text-display-l">Projekte</h1>
+        <CatSpot pose="sit" place="beside-title" />
+      </div>
       <ul className="group/track grid w-full max-w-track grid-cols-2 gap-8 lg:grid-cols-4">
         {projects.map((project) => (
           <li key={project.number}>
